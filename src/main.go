@@ -13,11 +13,19 @@ func main() {
 	...
 	*/
 	beego.Router("/:operation/:num1:int/:num2:int", &mainController{})
+	beego.Router("/health", &healthController{})
 	beego.Run()
 }
 
+type healthController struct {
+	beego.Controller
+}
 type mainController struct {
 	beego.Controller
+}
+
+func (c *healthController) Get() {
+	c.Ctx.WriteString("Ok!")
 }
 
 func (c *mainController) Get() {
@@ -27,20 +35,14 @@ func (c *mainController) Get() {
 	num1, _ := strconv.Atoi(c.Ctx.Input.Param(":num1"))
 	num2, _ := strconv.Atoi(c.Ctx.Input.Param(":num2"))
 
-	//Set the values for use in the template
-	c.Data["operation"] = operation
-	c.Data["num1"] = num1
-	c.Data["num2"] = num2
-	c.TplName = "result.html"
-
 	// Perform the calculation depending on the 'operation' route parameter
 	switch operation {
 	case "sum":
-		c.Data["result"] = add(num1, num2)
+		c.Ctx.WriteString(strconv.Itoa(add(num1, num2)))
 	case "product":
-		c.Data["result"] = multiply(num1, num2)
+		c.Ctx.WriteString(strconv.Itoa(multiply(num1, num2)))
 	default:
-		c.TplName = "invalid-route.html"
+		c.Ctx.WriteString("What?")
 	}
 }
 

@@ -11,7 +11,7 @@ ENV APP_USER app
 ENV APP_HOME /go/src/kube
 
 # Variables available during build time
-# ARG something something
+ARG GROUP_ID
 
 # Create user, home directory and app directory inside container
 RUN groupadd app && useradd -m -l --gid $GROUP_ID $APP_USER

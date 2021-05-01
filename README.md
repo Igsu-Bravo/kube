@@ -3,7 +3,9 @@
 Build image with dokka
 
 ```shell
-$ docker build -t kube-dev .
+$ docker build \
+  --build-arg GROUP_ID=$(id -g) \
+  -t kube-dev .
 ```
 
 Run image

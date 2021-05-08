@@ -1,9 +1,9 @@
 package main
 
 import (
-	"strconv"
+	_ "kube/routers"
 
-	"github.com/astaxie/beego"
+	"github.com/beego/beego/v2/server/web"
 )
 
 func main() {
@@ -12,23 +12,24 @@ func main() {
 	/product/6/23
 	...
 	*/
-	beego.Router("/:operation/:num1:int/:num2:int", &mainController{})
-	beego.Router("/health", &healthController{})
-	beego.Run()
+	// beego.Router("/:operation/:num1:int/:num2:int", &mainController{})
+	web.Run()
 }
 
-type healthController struct {
+/* type healthController struct {
 	beego.Controller
 }
-type mainController struct {
+*/
+/* type mainController struct {
 	beego.Controller
-}
+} */
 
+/*
 func (c *healthController) Get() {
 	c.Ctx.WriteString("Ok!")
-}
+} */
 
-func (c *mainController) Get() {
+/* func (c *mainController) Get() {
 
 	//Obtain the values of the route parameters defined in the route above
 	operation := c.Ctx.Input.Param(":operation")
@@ -44,12 +45,4 @@ func (c *mainController) Get() {
 	default:
 		c.Ctx.WriteString("What?")
 	}
-}
-
-func add(n1, n2 int) int {
-	return n1 + n2
-}
-
-func multiply(n1, n2 int) int {
-	return n1 * n2
-}
+} */
